@@ -2,13 +2,13 @@
   "name": "be_product_catalog",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/main.js",
   "type": "module",
-  "scripts": {
-    "start": "tsc && node --loader ts-node/esm src/main.ts",
-    "build": "tsc",
-    "dev": "nodemon --watch src --ext ts --exec npm start"
-  },
+"scripts": {
+  "start": "node dist/main.js",
+  "build": "tsc",
+  "dev": "nodemon --watch src --ext ts --exec ts-node src/main.ts"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
