@@ -19,13 +19,13 @@ function createServer() {
   app.use(express.json());
 
   console.log(DB_HOST);
-  
+
   sequelize
     .authenticate()
     .then(() => {
       console.log('Connection has been established successfully.');
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       console.error('Unable to connect to the database:', err);
     });
 
