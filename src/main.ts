@@ -1,6 +1,10 @@
 'use strict';
 
 import express, { Express } from 'express';
+
+const PORT = 3001;
+
+import express from 'express';
 import cors from 'cors';
 
 const PORT = 3001;
