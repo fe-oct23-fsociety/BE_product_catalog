@@ -2,9 +2,8 @@
 
 import express, { Express } from 'express';
 import cors from 'cors';
-
 import dotenv from 'dotenv';
-import { Sequelize } from 'sequelize';
+
 import { sequelize } from './db.js';
 dotenv.config();
 
@@ -17,8 +16,6 @@ function createServer() {
 
   app.use(cors());
   app.use(express.json());
-
-  console.log(DB_HOST);
 
   sequelize
     .authenticate()
