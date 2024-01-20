@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "postinstall": "npm install @types/dotenv @types/sequelize",
-    "start": "npm run build && node dist/main.js",
+    "start": "node dist/main.js",
     "build": "tsc",
     "dev": "nodemon --watch src --ext ts --exec ts-node src/main.ts"
   },
