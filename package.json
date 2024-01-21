@@ -8,7 +8,11 @@
     "postinstall": "npm install @types/dotenv @types/sequelize",
     "start": "node dist/main.js",
     "build": "tsc",
-    "dev": "nodemon --watch src --ext ts --exec ts-node src/main.ts"
+    "dev": "nodemon --watch src --ext ts --exec ts-node src/main.ts",
+    "format": "prettier . --ignore-path .prettierignore --write",
+    "lint": "eslint src/**/*.ts --fix",
+    "fix-style": "npm run format & npm run lint",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -20,10 +24,22 @@
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.5",
     "@types/sequelize": "^4.28.20",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
     "dotenv": "^16.3.2",
+    "eslint": "^8.56.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
     "nodemon": "^3.0.3",
+    "prettier": "3.2.4",
     "sequelize": "^6.35.2",
     "typescript": "^5.3.3"
+  },
+  "lint-staged": {
+    "*.ts": "npm run fix-style"
   },
   "dependencies": {
     "cors": "^2.8.5",
