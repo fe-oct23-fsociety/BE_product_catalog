@@ -3,8 +3,9 @@ import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
 dotenv.config();
 const { DB_URL } = process.env;
-if (!DB_URL) {
-    throw new Error('Something bad with env variables!');
+if (typeof DB_URL !== 'string') {
+    console.log('Something bad with env variables!');
+    process.exit(1);
 }
 export const sequelize = new Sequelize(DB_URL, {
     dialect: 'postgres',
