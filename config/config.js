@@ -1,7 +1,7 @@
 'use strict';
 
-const dotenv = require('dotenv');
-dotenv.config();
+import { config as _config } from 'dotenv';
+_config();
 
 const { DB_URL } = process.env;
 
@@ -28,4 +28,4 @@ const config = {
   production: { ...settings }
 };
 
-module.exports = config;
+export default config;
