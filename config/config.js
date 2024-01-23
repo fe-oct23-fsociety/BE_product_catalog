@@ -21,8 +21,10 @@ const settings = {
   }
 }
 
-module.exports = {
+const config = {
   development: { ...settings },
   test: { ...settings },
   production: { ...settings }
 };
+
+export default config;
