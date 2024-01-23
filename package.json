@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "pre-start": "npm install && npm run build && npm ",
-    "start": "node dist/main.js",
+    "start": "npm run build && node dist/main.js",
     "build": "npm run db-sync && tsc",
     "dev": "nodemon --watch src --ext ts --exec ts-node src/main.ts",
     "format": "prettier . --ignore-path .prettierignore --write",
