@@ -5,7 +5,7 @@
   "main": "dist/main.js",
   "type": "module",
   "scripts": {
-    "pre-start": "npm install && npm run build",
+    "pre-start": "npm install && npm run build && npm ",
     "start": "node dist/main.js",
     "build": "npm run db-sync; tsc",
     "dev": "nodemon --watch src --ext ts --exec ts-node src/main.ts",
