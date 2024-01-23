@@ -1,6 +1,6 @@
 'use strict';
 
-export default {
+module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Products', {
       id: {
@@ -21,7 +21,7 @@ export default {
           model: 'Products-details',
           key: 'id',
         }
-        
+
       },
       name: {
         type: Sequelize.STRING,
