@@ -1,21 +1,32 @@
 'use strict';
 
-// try this one :)
-
-const PORT = 3001;
-
-import express from 'express';
+import express, { type Express } from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
-function createServer () {
+import { sequelize } from './db.js';
+dotenv.config();
+
+const PORT = process.env.PORT ?? 3001;
+
+function createServer (): Express {
   const app = express();
 
   app.use(cors());
   app.use(express.json());
- 
+
+  sequelize
+    .authenticate()
+    .then(() => {
+      console.log('Connection has been established successfully.');
+    })
+    .catch((err: Error) => {
+      console.error('Unable to connect to the database:', err);
+    });
+
   return app;
 }
 
 createServer().listen(PORT, () => {
   console.log(`Server is listening PORT ${PORT}`);
-})
+});
