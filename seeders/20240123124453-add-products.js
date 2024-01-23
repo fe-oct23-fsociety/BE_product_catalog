@@ -1,13 +1,13 @@
 'use strict';
 
-import products from './20240123124453-add-products.json';
+const products = require('./20240123124453-add-products.json');
 
-export default {
+module.exports = {
   async up(queryInterface) {
     await queryInterface.bulkInsert(
       'Products',
       products,
-    );
+    )
   },
 
   async down(queryInterface) {
