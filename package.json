@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/main.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "pre-start": "npm install && npm run build && npm ",
     "start": "node dist/main.js",
