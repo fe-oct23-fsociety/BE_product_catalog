@@ -11,7 +11,7 @@ if (typeof DB_URL !== 'string') {
   process.exit(1);
 }
 
-const sequelize = new Sequelize(DB_URL, {
+export const sequelize = new Sequelize(DB_URL, {
   dialect: 'postgres',
   dialectOptions: {
     ssl: {
