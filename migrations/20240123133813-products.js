@@ -17,6 +17,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
+        references: {
+          model: 'Products-details',
+          key: 'id',
+        }
+        
       },
       name: {
         type: Sequelize.STRING,
