@@ -2,7 +2,7 @@ import http from 'http';
 import fs from 'fs';
 import url from 'url';
 
-const PORT = process.env.PORT ?? 3000;
+const PORT = process.env.IMG_PORT ?? 3000;
 
 export function createImagesServer (port: number): http.Server {
   const server = http.createServer((req, res) => {
