@@ -24,7 +24,12 @@ function createServer (): Express {
 
   const truePath = path.join(_dirname, '../public');
 
-  console.log(truePath);
+  app.use('/static', (req, res, next) => {
+    if (req.path.endsWith('.webp')) {
+      req.url = req.url.replace('.webp', '.jpg');
+    }
+    next();
+  });
 
   app.use('/static', express.static(truePath));
 
