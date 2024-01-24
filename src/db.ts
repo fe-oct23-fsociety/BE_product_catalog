@@ -78,7 +78,7 @@ export const Products = sequelize.define(
   }
 );
 export const ProductsDetails = sequelize.define(
-  'Products_details',
+  'Products-details',
   {
     id: {
       allowNull: false,
@@ -162,7 +162,7 @@ export const ProductsDetails = sequelize.define(
     }
   },
   {
-    tableName: 'Products_details',
+    tableName: 'Products-details',
     createdAt: false,
     updatedAt: false
   }
