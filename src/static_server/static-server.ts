@@ -1,7 +1,7 @@
 import http from 'http';
 import fs from 'fs';
 import path from 'path';
-const PORT = process.env.PORT ?? 3000;
+const PORT = process.env.IMAGES_PORT ?? 3002;
 
 export function createImagesServer (port: number): http.Server {
   const server = http.createServer((req, res) => {
@@ -49,7 +49,7 @@ export function createImagesServer (port: number): http.Server {
   });
 
   server.listen(PORT, () => {
-    console.log(`Images Static Server is running on http://localhost:${PORT}`);
+    console.log(`Images Static Server is running on http://localhost:${port}`);
   });
 
   return server;
