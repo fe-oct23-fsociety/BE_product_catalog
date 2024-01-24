@@ -5,7 +5,6 @@ module.exports = {
     await queryInterface.createTable('Products-details', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
         type: Sequelize.STRING,
       },
@@ -23,7 +22,7 @@ module.exports = {
       capacityAvailable: {
         type: Sequelize.ARRAY(Sequelize.STRING),
       },
-      
+
       capacity: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -54,6 +53,7 @@ module.exports = {
 
       description: {
         type: Sequelize.JSONB,
+        allowNull: false,
       },
 
       screen: {
@@ -87,6 +87,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('Phones');
+    await queryInterface.dropTable('Products-details');
   },
 };

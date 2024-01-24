@@ -3,8 +3,9 @@
 import express, { type Express } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
 import { sequelize } from './db.js';
+import { productRoutes } from './routes/products.router.js';
+
 dotenv.config();
 
 const PORT = process.env.PORT ?? 3001;
@@ -15,9 +16,11 @@ function createServer (): Express {
   app.use(cors());
   app.use(express.json());
 
+  app.use('/products', productRoutes);
+
   sequelize
     .authenticate()
-    .then(() => {
+    .then(async () => {
       console.log('Connection has been established successfully.');
     })
     .catch((err: Error) => {

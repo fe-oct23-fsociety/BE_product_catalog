@@ -11,7 +11,7 @@ if (typeof DB_URL !== 'string') {
   process.exit(1);
 }
 
-const sequelize = new Sequelize(DB_URL, {
+export const sequelize = new Sequelize(DB_URL, {
   dialect: 'postgres',
   dialectOptions: {
     ssl: {
@@ -78,7 +78,7 @@ export const Products = sequelize.define(
   }
 );
 export const ProductsDetails = sequelize.define(
-  'Products_details',
+  'Products-details',
   {
     id: {
       allowNull: false,
@@ -162,7 +162,7 @@ export const ProductsDetails = sequelize.define(
     }
   },
   {
-    tableName: 'Products_details',
+    tableName: 'Products-details',
     createdAt: false,
     updatedAt: false
   }

@@ -21,7 +21,7 @@ module.exports = {
           model: 'Products-details',
           key: 'id',
         }
-        
+
       },
       name: {
         type: Sequelize.STRING,

@@ -1,7 +1,7 @@
 'use strict';
 
-import dotenv from 'dotenv';
-dotenv.config();
+import { config as _config } from 'dotenv';
+_config();
 
 const { DB_URL } = process.env;
 
@@ -13,6 +13,7 @@ if (typeof DB_URL !== 'string') {
 const settings = {
   seederStorage: 'sequelize',
   url: DB_URL,
+  dialect: 'postgres',
   dialectOptions: {
     ssl: {
       require: true,
@@ -21,8 +22,10 @@ const settings = {
   }
 }
 
-module.exports = {
+const config = {
   development: { ...settings },
   test: { ...settings },
   production: { ...settings }
 };
+
+export default config;
