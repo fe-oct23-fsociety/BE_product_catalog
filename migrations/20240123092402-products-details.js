@@ -82,7 +82,7 @@ module.exports = {
 
       cell: {
         type: Sequelize.ARRAY(Sequelize.STRING),
-      }
+      },
     });
   },
 

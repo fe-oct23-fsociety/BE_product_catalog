@@ -8,11 +8,11 @@ module.exports = {
       'Products-details',
       products_details,
       {},
-      { description: { type: new Sequelize.JSON() } }
-    )
+      { description: { type: new Sequelize.JSON() } },
+    );
   },
 
   async down(queryInterface) {
     await queryInterface.bulkDelete('Products-details', null, {});
-  }
+  },
 };

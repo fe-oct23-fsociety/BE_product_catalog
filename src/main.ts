@@ -10,9 +10,9 @@ import { createImagesServer } from './static_server/static-server.js';
 dotenv.config();
 
 const PORT = process.env.PORT ?? 3001;
-const IMAGES_PORT = Number(PORT) - 1;
+const IMAGES_PORT = process.env.IMG_PORT ?? 3002;
 
-createImagesServer(IMAGES_PORT);
+createImagesServer(Number(IMAGES_PORT));
 
 function createServer (): Express {
   const app = express();
