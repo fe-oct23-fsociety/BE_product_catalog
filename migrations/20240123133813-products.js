@@ -20,8 +20,7 @@ module.exports = {
         references: {
           model: 'Products-details',
           key: 'id',
-        }
-
+        },
       },
       name: {
         type: Sequelize.STRING,
@@ -53,7 +52,7 @@ module.exports = {
       image: {
         type: Sequelize.TEXT,
         allowNull: false,
-      }
+      },
     });
   },
 
