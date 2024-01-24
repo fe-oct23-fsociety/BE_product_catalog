@@ -2,9 +2,15 @@ import { Products } from '../db.js';
 import { Op } from 'sequelize';
 
 const findAllProducts = async (
-  category: string | undefined
+  category: string | undefined,
+  options: {
+    limit?: number
+    offset?: number
+  } = {}
 ): Promise<any[]> => {
   const clauses: any = {};
+
+  const { limit, offset } = options;
 
   if (typeof category === 'string') {
     clauses.category = category;
@@ -13,7 +19,9 @@ const findAllProducts = async (
   }
 
   const products = await Products.findAll({
-    where: clauses
+    where: clauses,
+    limit,
+    offset
   });
   return products;
 };
