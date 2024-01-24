@@ -3,7 +3,7 @@ import { type Request, type Response } from 'express';
 import { productsService } from '../services/products.service.js';
 
 const getProducts = async (req: Request, res: Response): Promise<void> => {
-  const { category } = req.query;
+  const category = req.query.category as string | undefined;
 
   const products = await productsService.findAllProducts(category);
 
