@@ -1,4 +1,4 @@
-import { type ProductsWithCount } from '../types.js';
+import { type Product, type ProductsWithCount } from '../types.js';
 import { Products } from '../db.js';
 
 import { Op, type WhereOptions } from 'sequelize';
@@ -32,6 +32,18 @@ const findAllProducts = async (
   };
 };
 
+const findById = async (id: number): Promise<Product | null> => {
+  try {
+    const searchedProduct = (await Products.findByPk(id)) as Product | null;
+
+    return searchedProduct;
+  } catch (err) {
+    console.error('Error during the product fetch: ', err);
+    throw err;
+  }
+};
+
 export const productsService = {
-  findAllProducts
+  findAllProducts,
+  findById
 };
