@@ -1,23 +1,54 @@
+import { type Product, type ProductsWithCount } from '../types.js';
 import { Products } from '../db.js';
-import { Op } from 'sequelize';
+
+import { Op, Sequelize, type WhereOptions } from 'sequelize';
 
 const findAllProducts = async (
-  category: string | undefined
-): Promise<any[]> => {
-  const clauses: any = {};
+  category: string | string[] | undefined,
+  options: {
+    limit?: number
+    offset?: number
+  } = {}
+): Promise<ProductsWithCount> => {
+  const whereOptions: WhereOptions = {};
+
+  const { limit, offset } = options;
 
   if (typeof category === 'string') {
-    clauses.category = category;
+    whereOptions.category = category;
   } else if (Array.isArray(category)) {
-    clauses.category = { [Op.in]: category };
+    whereOptions.category = { [Op.in]: category };
   }
 
-  const products = await Products.findAll({
-    where: clauses
+  const products = await Products.findAndCountAll({
+    where: whereOptions,
+    limit,
+    offset
   });
-  return products;
+
+  return {
+    count: products.count,
+    rows: products.rows
+  };
+};
+
+const getRecomendedProducts = async (): Promise<Product[]> => {
+  const recomendedProducts = await Products.findAll({
+    where: {
+      category: 'phones'
+    },
+    order: Sequelize.literal('random()'),
+    limit: 3
+  });
+
+  const plainProducts = recomendedProducts.map((product) =>
+    product.get({ plain: true })
+  );
+
+  return plainProducts;
 };
 
 export const productsService = {
-  findAllProducts
+  findAllProducts,
+  getRecomendedProducts
 };

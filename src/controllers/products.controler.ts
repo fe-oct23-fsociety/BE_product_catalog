@@ -1,21 +1,64 @@
 import { type Request, type Response } from 'express';
 
 import { productsService } from '../services/products.service.js';
+import { isValid } from '../utils/isValid.js';
 
 const getProducts = async (req: Request, res: Response): Promise<void> => {
+  const { limit: limitParams, offset: offsetParams } = req.query;
+
   const category = req.query.category as string | undefined;
 
-  const products = await productsService.findAllProducts(category);
+  const isLimitPassed = typeof limitParams === 'string';
 
-  if (products.length === 0) {
-    res.sendStatus(404);
+  const limit = isLimitPassed ? Number(limitParams) : undefined;
+
+  if (isLimitPassed && !isValid(limit)) {
+    res.status(400).send('Invalid limit');
 
     return;
   }
 
-  res.send(products);
+  const isOffsetPassed = typeof offsetParams === 'string';
+  const offset = isOffsetPassed ? Number(offsetParams) : undefined;
+
+  if (isOffsetPassed && !isValid(offset)) {
+    res.status(400).send('Invalid offset');
+
+    return;
+  }
+
+  const options = { limit, offset };
+
+  try {
+    const { count, rows: products } = await productsService.findAllProducts(
+      category,
+      options
+    );
+
+    if (products.length === 0) {
+      res.sendStatus(404);
+      return;
+    }
+
+    res.send({ count, products });
+  } catch (error) {
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+const getRecomended = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const recomendedProducts = await productsService.getRecomendedProducts();
+
+    if (recomendedProducts.length > 0) {
+      res.status(200).send(recomendedProducts);
+    }
+  } catch (err) {
+    res.status(500).send('oops, some problems happened');
+  }
 };
 
 export const productsController = {
-  getProducts
+  getProducts,
+  getRecomended
 };

@@ -17,15 +17,15 @@ const settings = {
   dialectOptions: {
     ssl: {
       require: true,
-      rejectUnauthorized: false
-    }
-  }
-}
+      rejectUnauthorized: false,
+    },
+  },
+};
 
 const config = {
   development: { ...settings },
   test: { ...settings },
-  production: { ...settings }
+  production: { ...settings },
 };
 
 export default config;
