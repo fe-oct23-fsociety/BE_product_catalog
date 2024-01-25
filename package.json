@@ -7,7 +7,7 @@
   "scripts": {
     "pre-start": "npm install && npm run build && npm ",
     "start": "npm run build && node dist/main.js",
-    "build": "npm run db-sync && tsc",
+    "build": "tsc",
     "dev": "nodemon --watch src --ext ts --exec ts-node src/main.ts",
     "format": "prettier . --ignore-path .prettierignore --write",
     "lint": "eslint src/**/*.ts --fix",
