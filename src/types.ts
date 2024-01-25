@@ -12,6 +12,28 @@ export interface Product {
   year: number
   image: string
 }
+
+export interface ProductDetails {
+  id: number
+  namespaceId: string
+  name: string
+  capacityAvailable: string[]
+  capacity: string
+  priceRegular: number
+  priceDiscount: number
+  colorsAvailable: string[]
+  color: string
+  images: string[]
+  description: object
+  screen: string
+  resolution: string
+  processor: string
+  ram: string
+  camera: string
+  zoom: string
+  cell: string[]
+}
+
 export interface ProductsWithCount {
   count: number
   rows: any[]
