@@ -1,7 +1,7 @@
-import { type ProductsWithCount } from '../types.js';
+import { type Product, type ProductsWithCount } from '../types.js';
 import { Products } from '../db.js';
 
-import { Op, type WhereOptions } from 'sequelize';
+import { Op, Sequelize, type WhereOptions } from 'sequelize';
 
 const findAllProducts = async (
   category: string | string[] | undefined,
@@ -32,6 +32,23 @@ const findAllProducts = async (
   };
 };
 
+const getRecomendedProducts = async (): Promise<Product[]> => {
+  const recomendedProducts = await Products.findAll({
+    where: {
+      category: 'phones'
+    },
+    order: Sequelize.literal('random()'),
+    limit: 3
+  });
+
+  const plainProducts = recomendedProducts.map((product) =>
+    product.get({ plain: true })
+  );
+
+  return plainProducts;
+};
+
 export const productsService = {
-  findAllProducts
+  findAllProducts,
+  getRecomendedProducts
 };
