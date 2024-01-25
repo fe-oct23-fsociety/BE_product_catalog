@@ -46,19 +46,19 @@ const getProducts = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const getRecomended = async (req: Request, res: Response): Promise<void> => {
+const getrecommended = async (req: Request, res: Response): Promise<void> => {
   try {
-    const recomendedProducts = await productsService.getRecomendedProducts();
+    const recommendedProducts = await productsService.getrecommendedProducts();
 
-    if (recomendedProducts.length > 0) {
-      res.status(200).send(recomendedProducts);
+    if (recommendedProducts.length > 0) {
+      res.status(200).send(recommendedProducts);
     }
   } catch (err) {
-    res.status(500).send('oops, some problems happened');
+    res.status(500).send('Internal Server Error');
   }
 };
 
 export const productsController = {
   getProducts,
-  getRecomended
+  getrecommended
 };
