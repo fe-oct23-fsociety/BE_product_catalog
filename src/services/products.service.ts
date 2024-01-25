@@ -32,16 +32,16 @@ const findAllProducts = async (
   };
 };
 
-const getRecomendedProducts = async (): Promise<Product[]> => {
-  const recomendedProducts = await Products.findAll({
+const getrecommendedProducts = async (): Promise<Product[]> => {
+  const recommendedProducts = await Products.findAll({
     where: {
       category: 'phones'
     },
     order: Sequelize.literal('random()'),
-    limit: 3
+    limit: 5
   });
 
-  const plainProducts = recomendedProducts.map((product) =>
+  const plainProducts = recommendedProducts.map((product) =>
     product.get({ plain: true })
   );
 
@@ -50,5 +50,5 @@ const getRecomendedProducts = async (): Promise<Product[]> => {
 
 export const productsService = {
   findAllProducts,
-  getRecomendedProducts
+  getrecommendedProducts
 };
