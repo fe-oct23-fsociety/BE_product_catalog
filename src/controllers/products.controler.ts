@@ -46,6 +46,19 @@ const getProducts = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const getRecomended = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const recomendedProducts = await productsService.getRecomendedProducts();
+
+    if (recomendedProducts.length > 0) {
+      res.status(200).send(recomendedProducts);
+    }
+  } catch (err) {
+    res.status(500).send('oops, some problems happened');
+  }
+};
+
 export const productsController = {
-  getProducts
+  getProducts,
+  getRecomended
 };
