@@ -26,6 +26,10 @@ const findAllProducts = async (
     offset
   });
 
+  // if (products.count === 0) {
+  //   return {}
+  // }
+
   return {
     count: products.count,
     rows: products.rows
