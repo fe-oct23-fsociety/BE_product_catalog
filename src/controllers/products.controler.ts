@@ -35,11 +35,6 @@ const getProducts = async (req: Request, res: Response): Promise<void> => {
       options
     );
 
-    if (products.length === 0) {
-      res.sendStatus(404);
-      return;
-    }
-
     res.send({ count, products });
   } catch (error) {
     res.status(500).send('Internal Server Error');
