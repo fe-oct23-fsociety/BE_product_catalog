@@ -20,7 +20,7 @@ export function createServer (): Express {
   const truePath = path.join(_dirname, '../public');
 
   app.use('/static', (req, res, next) => {
-    if (req.path.endsWith('.webp')) {
+    if (req.path.endsWith('.webp') && req.path.includes('phones')) {
       req.url = req.url.replace('.webp', '.jpg');
     }
     next();
