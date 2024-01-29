@@ -26,21 +26,20 @@ const findAllProducts = async (
     offset
   });
 
-  // if (products.count === 0) {
-  //   return {}
-  // }
-
   return {
     count: products.count,
     rows: products.rows
   };
 };
 
-const getDiscountProduct = async (limit?: number, offset?: number): Promise<Product[]> => {
+const getDiscountProduct = async (
+  limit?: number,
+  offset?: number
+): Promise<Product[]> => {
   const productWithDiscount = await Products.findAll({
     order: Sequelize.literal('("fullPrice" - "price") DESC'),
     limit,
-    offset,
+    offset
   });
 
   const productDiscount = productWithDiscount.map((product) =>
@@ -48,9 +47,26 @@ const getDiscountProduct = async (limit?: number, offset?: number): Promise<Prod
   );
 
   return productDiscount;
-}
+};
 
-const getrecommendedProducts = async (): Promise<Product[]> => {
+const getNewestProducts = async (
+  limit?: number,
+  offset?: number
+): Promise<Product[]> => {
+  const newestProducts = await Products.findAll({
+    order: Sequelize.literal('("year") DESC'),
+    limit,
+    offset
+  });
+
+  const newProducts = newestProducts.map((product) =>
+    product.get({ plain: true })
+  );
+
+  return newProducts;
+};
+
+const getRecommendedProducts = async (): Promise<Product[]> => {
   const recommendedProducts = await Products.findAll({
     where: {
       category: 'phones'
@@ -69,5 +85,6 @@ const getrecommendedProducts = async (): Promise<Product[]> => {
 export const productsService = {
   findAllProducts,
   getDiscountProduct,
-  getrecommendedProducts
+  getRecommendedProducts,
+  getNewestProducts
 };

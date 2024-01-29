@@ -63,18 +63,21 @@ const getDiscount = async (req: Request, res: Response): Promise<void> => {
   }
 
   try {
-    const discountProducts = await productsService.getDiscountProduct(limit, offset);
+    const discountProducts = await productsService.getDiscountProduct(
+      limit,
+      offset
+    );
     if (discountProducts.length > 0) {
       res.status(200).send(discountProducts);
     }
   } catch (error) {
     res.status(500).send('Internal Server Error');
   }
-}
+};
 
-const getrecommended = async (req: Request, res: Response): Promise<void> => {
+const getRecommended = async (req: Request, res: Response): Promise<void> => {
   try {
-    const recommendedProducts = await productsService.getrecommendedProducts();
+    const recommendedProducts = await productsService.getRecommendedProducts();
 
     if (recommendedProducts.length > 0) {
       res.status(200).send(recommendedProducts);
@@ -84,8 +87,21 @@ const getrecommended = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const getNewest = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const newestProducts = await productsService.getNewestProducts();
+
+    if (newestProducts.length > 0) {
+      res.status(200).send(newestProducts);
+    }
+  } catch (err) {
+    res.status(500).send('Internal Server Error');
+  }
+};
+
 export const productsController = {
   getProducts,
   getDiscount,
-  getrecommended
+  getRecommended,
+  getNewest
 };
