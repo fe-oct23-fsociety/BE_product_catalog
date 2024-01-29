@@ -7,5 +7,6 @@ export const productRoutes = Router();
 
 productRoutes.get('/', productsController.getProducts);
 productRoutes.get('/discount', productsController.getDiscount);
-productRoutes.get('/:id/recommended', productsController.getrecommended);
+productRoutes.get('/newest', productsController.getNewest);
+productRoutes.get('/:id/recommended', productsController.getRecommended);
 productRoutes.get('/:id', productsDetailsController.getProductById);
