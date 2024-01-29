@@ -2,6 +2,8 @@ import { type Request, type Response } from 'express';
 
 import { productsService } from '../services/products.service.js';
 import { isValid } from '../utils/isValid.js';
+import { isParamsPassed } from '../utils/isParamsPassed.js';
+import { isString } from '../utils/isString.js';
 
 const getProducts = async (req: Request, res: Response): Promise<void> => {
   const { limit: limitParams, offset: offsetParams } = req.query;
@@ -41,6 +43,35 @@ const getProducts = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const getDiscount = async (req: Request, res: Response): Promise<void> => {
+  const { limit: limitParams, offset: offsetParams } = req.query;
+
+  const limit = isParamsPassed(limitParams);
+
+  if (isString(limitParams) && !isValid(limit)) {
+    res.status(400).send('Invalid limit');
+
+    return;
+  }
+
+  const offset = isParamsPassed(offsetParams);
+
+  if (isString(offsetParams) && !isValid(offset)) {
+    res.status(400).send('Invalid offset');
+
+    return;
+  }
+
+  try {
+    const discountProducts = await productsService.getDiscountProduct(limit, offset);
+    if (discountProducts.length > 0) {
+      res.status(200).send(discountProducts);
+    }
+  } catch (error) {
+    res.status(500).send('Internal Server Error');
+  }
+}
+
 const getrecommended = async (req: Request, res: Response): Promise<void> => {
   try {
     const recommendedProducts = await productsService.getrecommendedProducts();
@@ -55,5 +86,6 @@ const getrecommended = async (req: Request, res: Response): Promise<void> => {
 
 export const productsController = {
   getProducts,
+  getDiscount,
   getrecommended
 };
