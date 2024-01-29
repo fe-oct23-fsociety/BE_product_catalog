@@ -36,10 +36,11 @@ const findAllProducts = async (
   };
 };
 
-const getDiscountProduct = async (): Promise<Product[]> => {
+const getDiscountProduct = async (limit?: number, offset?: number): Promise<Product[]> => {
   const productWithDiscount = await Products.findAll({
     order: Sequelize.literal('("fullPrice" - "price") DESC'),
-    limit: 5
+    limit,
+    offset,
   });
 
   const productDiscount = productWithDiscount.map((product) =>
