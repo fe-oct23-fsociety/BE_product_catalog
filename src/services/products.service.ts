@@ -36,6 +36,19 @@ const findAllProducts = async (
   };
 };
 
+const getDiscountProduct = async (): Promise<Product[]> => {
+  const productWithDiscount = await Products.findAll({
+    order: Sequelize.literal('("fullPrice" - "price") DESC'),
+    limit: 5
+  });
+
+  const productDiscount = productWithDiscount.map((product) =>
+    product.get({ plain: true })
+  );
+
+  return productDiscount;
+}
+
 const getrecommendedProducts = async (): Promise<Product[]> => {
   const recommendedProducts = await Products.findAll({
     where: {
@@ -54,5 +67,6 @@ const getrecommendedProducts = async (): Promise<Product[]> => {
 
 export const productsService = {
   findAllProducts,
+  getDiscountProduct,
   getrecommendedProducts
 };

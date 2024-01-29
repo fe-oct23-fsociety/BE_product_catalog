@@ -41,6 +41,17 @@ const getProducts = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const getDiscount = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const discountProducts = await productsService.getDiscountProduct();
+    if (discountProducts.length > 0) {
+      res.status(200).send(discountProducts);
+    }
+  } catch (error) {
+    res.status(500).send('Internal Server Error');
+  }
+}
+
 const getrecommended = async (req: Request, res: Response): Promise<void> => {
   try {
     const recommendedProducts = await productsService.getrecommendedProducts();
@@ -55,5 +66,6 @@ const getrecommended = async (req: Request, res: Response): Promise<void> => {
 
 export const productsController = {
   getProducts,
+  getDiscount,
   getrecommended
 };

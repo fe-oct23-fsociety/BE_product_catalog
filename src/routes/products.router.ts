@@ -6,5 +6,6 @@ import { productsDetailsController } from '../controllers/products-details.contr
 export const productRoutes = Router();
 
 productRoutes.get('/', productsController.getProducts);
+productRoutes.get('/discount', productsController.getDiscount);
 productRoutes.get('/:id/recommended', productsController.getrecommended);
 productRoutes.get('/:id', productsDetailsController.getProductById);
