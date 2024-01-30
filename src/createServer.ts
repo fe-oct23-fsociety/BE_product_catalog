@@ -3,10 +3,13 @@
 import express, { type Express } from 'express';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 
 import { sequelize } from './db.js';
 import { productRoutes } from './routes/products.router.js';
 import { fileURLToPath } from 'url';
+
+const DEFAULT_PICTURE = 'img/under-construction.png';
 
 export function createServer (): Express {
   const app = express();
@@ -20,9 +23,23 @@ export function createServer (): Express {
   const truePath = path.join(_dirname, '../public');
 
   app.use('/static', (req, res, next) => {
-    if (req.path.endsWith('.webp') && req.path.includes('phones')) {
+    let filePath = path.join(truePath, req.originalUrl);
+
+    if (
+      req.originalUrl.endsWith('.webp') &&
+      req.originalUrl.includes('phones')
+    ) {
       req.url = req.url.replace('.webp', '.jpg');
+
+      filePath = path.join(truePath, req.url);
+
+      if (!fs.existsSync(filePath)) {
+        const defaultImagePath = path.join(truePath, DEFAULT_PICTURE);
+        res.sendFile(defaultImagePath);
+        return;
+      }
     }
+
     next();
   });
 
