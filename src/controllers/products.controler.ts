@@ -6,13 +6,19 @@ import { isParamsPassed } from '../utils/isParamsPassed.js';
 import { isString } from '../utils/isString.js';
 
 const getProducts = async (req: Request, res: Response): Promise<void> => {
-  const { limit: limitParams, offset: offsetParams } = req.query;
+  const {
+    limit: limitParams,
+    offset: offsetParams,
+    search: searchParams
+  } = req.query;
 
   const category = req.query.category as string | undefined;
 
   const isLimitPassed = typeof limitParams === 'string';
 
   const limit = isLimitPassed ? Number(limitParams) : undefined;
+
+  const search = searchParams as string | undefined;
 
   if (isLimitPassed && !isValid(limit)) {
     res.status(400).send('Invalid limit');
@@ -29,7 +35,7 @@ const getProducts = async (req: Request, res: Response): Promise<void> => {
     return;
   }
 
-  const options = { limit, offset };
+  const options = { limit, offset, search };
 
   try {
     const { count, rows: products } = await productsService.findAllProducts(

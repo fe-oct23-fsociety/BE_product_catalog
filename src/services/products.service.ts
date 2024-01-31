@@ -8,16 +8,21 @@ const findAllProducts = async (
   options: {
     limit?: number
     offset?: number
+    search?: string
   } = {}
 ): Promise<ProductsWithCount> => {
   const whereOptions: WhereOptions = {};
 
-  const { limit, offset } = options;
+  const { limit, offset, search } = options;
 
   if (typeof category === 'string') {
     whereOptions.category = category;
   } else if (Array.isArray(category)) {
     whereOptions.category = { [Op.in]: category };
+  }
+
+  if (typeof search === 'string' && search.trim() !== '') {
+    whereOptions.name = { [Op.like]: `%${search}%` };
   }
 
   const products = await Products.findAndCountAll({
