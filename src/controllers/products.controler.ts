@@ -9,20 +9,20 @@ const getProducts = async (req: Request, res: Response): Promise<void> => {
   const {
     limit: limitParams,
     offset: offsetParams,
-    search: searchParams
+    search: searchParams,
+    sortBy: sortByParams,
+    sortType: sortTypeParams
   } = req.query;
 
   const category = req.query.category as string | undefined;
 
   const isLimitPassed = typeof limitParams === 'string';
-
   const limit = isLimitPassed ? Number(limitParams) : undefined;
 
   const search = searchParams as string | undefined;
 
   if (isLimitPassed && !isValid(limit)) {
     res.status(400).send('Invalid limit');
-
     return;
   }
 
@@ -31,11 +31,13 @@ const getProducts = async (req: Request, res: Response): Promise<void> => {
 
   if (isOffsetPassed && !isValid(offset)) {
     res.status(400).send('Invalid offset');
-
     return;
   }
 
-  const options = { limit, offset, search };
+  const sortBy = sortByParams as string | undefined;
+  const sortType = sortTypeParams as string | undefined;
+
+  const options = { limit, offset, search, sortBy, sortType };
 
   try {
     const { count, rows: products } = await productsService.findAllProducts(

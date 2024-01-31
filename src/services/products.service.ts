@@ -1,19 +1,25 @@
 import { type Product, type ProductsWithCount } from '../types.js';
 import { Products } from '../db.js';
 
-import { Op, Sequelize, type WhereOptions } from 'sequelize';
+import {
+  Op,
+  Sequelize,
+  type FindAndCountOptions,
+  type WhereOptions
+} from 'sequelize';
 
 const findAllProducts = async (
   category: string | string[] | undefined,
   options: {
     limit?: number
+    sortBy?: string
+    sortType?: string
     offset?: number
     search?: string
   } = {}
 ): Promise<ProductsWithCount> => {
   const whereOptions: WhereOptions = {};
-
-  const { limit, offset, search } = options;
+  const { limit, offset, search, sortBy, sortType } = options;
 
   if (typeof category === 'string') {
     whereOptions.category = category;
@@ -25,11 +31,17 @@ const findAllProducts = async (
     whereOptions.name = { [Op.like]: `%${search}%` };
   }
 
-  const products = await Products.findAndCountAll({
+  const findOptions: FindAndCountOptions = {
     where: whereOptions,
     limit,
-    offset
-  });
+    offset,
+    order:
+      sortBy != null && sortType != null
+        ? Sequelize.literal(`${sortBy} ${sortType}`)
+        : undefined
+  };
+
+  const products = await Products.findAndCountAll(findOptions);
 
   return {
     count: products.count,
