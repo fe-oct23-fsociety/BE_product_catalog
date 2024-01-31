@@ -22,7 +22,7 @@ const findAllProducts = async (
   }
 
   if (typeof search === 'string' && search.trim() !== '') {
-    whereOptions.name = { [Op.like]: `%${search}%` };
+    whereOptions.name = { [Op.iLike]: `%${search}%` };
   }
 
   const products = await Products.findAndCountAll({
