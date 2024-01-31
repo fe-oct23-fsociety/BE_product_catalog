@@ -23,21 +23,12 @@ export function createServer (): Express {
   const truePath = path.join(_dirname, '../public');
 
   app.use('/static', (req, res, next) => {
-    let filePath = path.join(truePath, req.originalUrl);
+    const filePath = path.join(truePath, req.originalUrl);
 
-    if (
-      req.originalUrl.endsWith('.webp') &&
-      req.originalUrl.includes('phones')
-    ) {
-      req.url = req.url.replace('.webp', '.jpg');
-
-      filePath = path.join(truePath, req.url);
-
-      if (!fs.existsSync(filePath)) {
-        const defaultImagePath = path.join(truePath, DEFAULT_PICTURE);
-        res.sendFile(defaultImagePath);
-        return;
-      }
+    if (!fs.existsSync(filePath)) {
+      const defaultImagePath = path.join(truePath, DEFAULT_PICTURE);
+      res.sendFile(defaultImagePath);
+      return;
     }
 
     next();
